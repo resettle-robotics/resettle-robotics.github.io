@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://resettle-robotics.github.io/assets/images/demo-poster.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=2">
   <script src="assets/js/main.js" defer></script>
 </head>
 <body>
@@ -45,7 +45,6 @@
 
   <main id="top">
     <section class="hero container" aria-labelledby="paper-title">
-      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Action-level robot recovery <span class="eyebrow-divider">/</span> arXiv 2026</p>
       <h1 id="paper-title"><span class="project-name">RESETTLE</span><span class="paper-title">Robotic Recovery through Disagreement-Triggered Retrieval and Efficient Corrective Control</span></h1>
       <div class="authors" aria-label="Authors">
         <div class="author-row"><span>Yuxin Chen<sup>1,*</sup></span><span>Senqiao Yang<sup>2,*</sup></span><span>Zixuan Wang<sup>1</sup></span><span>Jinhui Ye<sup>1</sup></span><span>Changsheng Lu<sup>1</sup></span></div><div class="author-row"><span>Pengguang Chen<sup>3</sup></span><span>Shu Liu<sup>3</sup></span><span>Zhuotao Tian<sup>4,5</sup></span><span>Jiaya Jia<sup>1</sup></span></div>
@@ -68,27 +67,24 @@
     </section>
 
     <section id="overview" class="section container" aria-labelledby="overview-title">
-      <h2 id="overview-title">Recovery for frozen robot policies.</h2>
-      <p class="lead">Detect disagreement. Retrieve experience. <em>Recover and resume.</em></p>
+      <h2 id="overview-title" class="lead">Detect disagreement. Retrieve experience. <em>Recover and resume.</em></h2>
       <p>A capable robot policy can still lose progress after an imperfect grasp, an unexpected contact, or a shifted initial state. <strong>RESETTLE</strong> adds a recovery layer at the action-execution interface. It detects persistent disagreement between independently sampled action proposals, retrieves a successful same-task demonstration, and executes <strong>one reference-guided corrective action</strong> before returning control to the base policy.</p>
       <p>The base policy stays frozen. Recovery uses a state-servo prior and a guarded visual residual, without additional vision-language reasoning or online trajectory optimization.</p>
     </section>
 
     <section id="demo" class="section container demo-section" aria-labelledby="demo-title">
-      <div class="section-heading"><h2 id="demo-title">See RESETTLE in action.</h2><span class="section-note">Project video · 3:49</span></div>
+      <h2 id="demo-title">See RESETTLE in action.</h2>
       <figure class="video-figure">
         <video id="demo-video" controls playsinline preload="metadata" poster="assets/images/demo-poster.webp" aria-label="RESETTLE project demonstration with robotic recovery examples">
           <source src="assets/videos/RESETTLE_demo.mp4" type="video/mp4">
           Your browser does not support embedded video. <a href="assets/videos/RESETTLE_demo.mp4">Download the demonstration.</a>
         </video>
-        <figcaption>From emerging deviations to recovery after execution errors. <a href="assets/videos/RESETTLE_demo.mp4" download>Download video <span aria-hidden="true">↓</span></a></figcaption>
       </figure>
       <div class="highlights" aria-label="Selected simulation results">
         <div><span class="metric-value">+8.70<span> pp</span></span><span class="metric-label">LIBERO-Plus</span><span class="metric-detail">FastWAM · aggregate success</span></div>
         <div><span class="metric-value">+6.28<span> pp</span></span><span class="metric-label">Meta-World</span><span class="metric-detail">SmolVLA · difficulty-group average</span></div>
         <div><span class="metric-value">+6.83<span> pp</span></span><span class="metric-label">RoboCasa Tabletop</span><span class="metric-detail">QwenGR00T · task-average success</span></div>
       </div>
-      <p class="fine-print">Largest aggregate gains among the evaluated policies in each benchmark. <strong>pp = percentage points</strong>; these are absolute changes. <a href="#results">Explore the comparisons ↓</a></p>
     </section>
 
     <section id="method" class="section container" aria-labelledby="method-title">
@@ -98,14 +94,12 @@
         <a href="assets/images/method.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open the RESETTLE method diagram at full resolution">
           <img src="assets/images/method.webp" width="2400" height="1044" alt="RESETTLE framework: persistent base-policy disagreement triggers V-JEPA retrieval; the retrieved image and robot state guide state-servo and guarded visual-residual control." loading="lazy" decoding="async">
         </a>
-        <figcaption>Two independent proposals reveal disagreement. A retrieved observation and state guide one corrective action, then the frozen policy resumes. <a href="https://arxiv.org/html/2610.12185v1#S4" target="_blank" rel="noopener noreferrer">Method in the paper ↗</a></figcaption>
       </figure>
       <div class="method-steps">
-        <article><span class="step-number">01 / DETECT</span><h3>Wait for persistent disagreement.</h3><p>Sample two action chunks under identical conditioning. Intervene when a training-calibrated disagreement threshold is exceeded at two consecutive decisions.</p></article>
-        <article><span class="step-number">02 / RETRIEVE</span><h3>Find a same-task reference.</h3><p>Match the current visual representation to successful demonstrations. Retrieve the reference observation together with its robot state.</p></article>
-        <article><span class="step-number">03 / CORRECT</span><h3>Make one correction. Resume.</h3><p>Refine a state-servo prior with a bounded, direction-checked visual residual. Execute one native action, re-observe, and return control to the policy.</p></article>
+        <article><h3>Wait for persistent disagreement.</h3><p>Sample two action chunks under identical conditioning. Intervene when a training-calibrated disagreement threshold is exceeded at two consecutive decisions.</p></article>
+        <article><h3>Find a same-task reference.</h3><p>Match the current visual representation to successful demonstrations. Retrieve the reference observation together with its robot state.</p></article>
+        <article><h3>Make one correction. Resume.</h3><p>Refine a state-servo prior with a bounded, direction-checked visual residual. Execute one native action, re-observe, and return control to the policy.</p></article>
       </div>
-      <p class="fine-print">The recovery model is trained offline on demonstrations; the base policy remains unchanged. The auxiliary dynamics predictor is used during training only.</p>
     </section>
 
     <section id="disagreement" class="section container" aria-labelledby="disagreement-title">
@@ -113,75 +107,66 @@
       <p>Under the same observation and instruction, unstable action choices can signal that a policy needs help. In QwenPI rollouts on LIBERO-Plus, failures show heavier disagreement tails than training-data inference and successful execution.</p>
       <figure class="paper-figure compact-figure">
         <a href="assets/images/action-disagreement.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open the action disagreement distributions at full resolution"><img src="assets/images/action-disagreement.webp" width="1262" height="460" alt="Action disagreement histograms for layout and robot-initialization perturbations on LIBERO-Plus, comparing training data, successful rollouts, and failed rollouts." loading="lazy" decoding="async"></a>
-        <figcaption>The training-data P95 provides a calibration reference. Persistence across decisions helps avoid reacting to a single noisy proposal. Disagreement is an intervention signal, not a guarantee of failure detection.</figcaption>
       </figure>
     </section>
 
     <section id="results" class="section container" aria-labelledby="results-title">
       <h2 id="results-title">Simulation across six base policies.</h2>
-      <p>RESETTLE improves aggregate results on three benchmarks while keeping the original policy weights fixed. Select a benchmark to compare the base policies with and without recovery.</p>
+      <p>RESETTLE improves aggregate results on three benchmarks while keeping the original policy weights fixed. Gains are reported in percentage points (pp).</p>
       <div class="benchmark-tabs" role="tablist" aria-label="Simulation benchmarks">
         <button id="tab-libero" class="benchmark-tab" type="button" role="tab" aria-selected="true" aria-controls="panel-libero" tabindex="0">LIBERO-Plus</button>
         <button id="tab-metaworld" class="benchmark-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-metaworld" tabindex="-1">Meta-World</button>
         <button id="tab-robocasa" class="benchmark-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-robocasa" tabindex="-1">RoboCasa Tabletop</button>
       </div>
-      <div class="chart-legend" aria-hidden="true"><span><i class="base-key"></i>Base policy</span><span><i class="resettle-key"></i>+ RESETTLE</span></div>
       <div id="panel-libero" class="benchmark-panel" role="tabpanel" aria-labelledby="tab-libero" tabindex="0">
         <div class="table-scroll"><table class="results-table"><caption>LIBERO-Plus aggregate success rate (%)</caption><thead><tr><th scope="col">Base policy</th><th scope="col">Without recovery</th><th scope="col">+ RESETTLE</th><th scope="col">Gain</th></tr></thead><tbody>
           <tr><th scope="row">FastWAM</th><td><span class="result-bar base" style="--value:49.3%">49.3</span></td><td><span class="result-bar recovered" style="--value:58%">58.0</span></td><td class="gain">+8.70 pp</td></tr>
           <tr><th scope="row">π<sub>0.5</sub></th><td><span class="result-bar base" style="--value:70%">70.0</span></td><td><span class="result-bar recovered" style="--value:73.7%">73.7</span></td><td class="gain">+3.70 pp</td></tr>
           <tr><th scope="row">QwenPI</th><td><span class="result-bar base" style="--value:80.2%">80.2</span></td><td><span class="result-bar recovered" style="--value:84.6%">84.6</span></td><td class="gain">+4.40 pp</td></tr>
         </tbody></table></div>
-        <p class="result-context">10,030 evaluation cases across seven perturbation types: camera, robot initialization, language, light, background, noise, and layout. Aggregate success is weighted by category case counts.</p>
       </div>
       <div id="panel-metaworld" class="benchmark-panel" role="tabpanel" aria-labelledby="tab-metaworld" tabindex="0" hidden>
         <div class="table-scroll"><table class="results-table"><caption>Meta-World difficulty-group macro average (%)</caption><thead><tr><th scope="col">Base policy</th><th scope="col">Without recovery</th><th scope="col">+ RESETTLE</th><th scope="col">Gain</th></tr></thead><tbody>
           <tr><th scope="row">QwenPI</th><td><span class="result-bar base" style="--value:60.66%">60.66</span></td><td><span class="result-bar recovered" style="--value:65.99%">65.99</span></td><td class="gain">+5.33 pp</td></tr>
           <tr><th scope="row">SmolVLA</th><td><span class="result-bar base" style="--value:59.2%">59.20</span></td><td><span class="result-bar recovered" style="--value:65.48%">65.48</span></td><td class="gain">+6.28 pp</td></tr>
         </tbody></table></div>
-        <p class="result-context">50 tasks and 500 episodes per configuration. The reported metric is the unweighted mean of four difficulty-group success rates, rather than overall episode success.</p>
       </div>
       <div id="panel-robocasa" class="benchmark-panel" role="tabpanel" aria-labelledby="tab-robocasa" tabindex="0" hidden>
         <div class="table-scroll"><table class="results-table"><caption>RoboCasa Tabletop task-average success rate (%)</caption><thead><tr><th scope="col">Base policy</th><th scope="col">Without recovery</th><th scope="col">+ RESETTLE</th><th scope="col">Gain</th></tr></thead><tbody>
           <tr><th scope="row">LDA</th><td><span class="result-bar base" style="--value:50.33%">50.33</span></td><td><span class="result-bar recovered" style="--value:52.42%">52.42</span></td><td class="gain">+2.09 pp</td></tr>
           <tr><th scope="row">QwenGR00T</th><td><span class="result-bar base" style="--value:53.67%">53.67</span></td><td><span class="result-bar recovered" style="--value:60.5%">60.50</span></td><td class="gain">+6.83 pp</td></tr>
         </tbody></table></div>
-        <p class="result-context">The 24-task GR1 suite, with 50 episodes per task and 1,200 episodes per configuration. Values report task-average success.</p>
       </div>
-      <p class="fine-print">All gains are absolute percentage-point changes. Results are reported in Tables 1–3 of the <a href="https://arxiv.org/pdf/2610.12185" target="_blank" rel="noopener noreferrer">paper</a>; aggregate gains do not imply improvement in every condition.</p>
       <figure class="paper-figure">
         <a href="assets/images/experiment-setup.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open the experimental settings figure at full resolution"><img src="assets/images/experiment-setup.webp" width="2400" height="753" alt="Experimental settings across LIBERO-Plus, LIBERO-Pro, Meta-World, RoboCasa, and real-world Franka manipulation." loading="lazy" decoding="async"></a>
-        <figcaption>Evaluation spans simulated perturbations, tabletop manipulation, high-level planning, and physical robot tasks.</figcaption>
       </figure>
-      <details class="recovery-gallery"><summary>Explore paired recovery rollouts <span>Four qualitative comparisons</span></summary>
+      <details class="recovery-gallery"><summary>Explore paired recovery rollouts</summary>
       <figure class="paper-figure">
-        <a href="assets/images/recovery-analysis.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open paired recovery examples at full resolution"><img src="assets/images/recovery-analysis.webp" width="2400" height="4123" alt="Paired simulation rollouts show pose correction, regrasping after a drop, recovery from an obstructed grasp, and stove-knob manipulation." loading="lazy" decoding="async"></a>
-        <figcaption><strong>Recovery in context.</strong> Yellow: baseline. Green: base-policy execution with RESETTLE. Red: recovery actions. Paired rollouts use the same task, layout, and seed; timestamps may diverge after intervention.</figcaption>
+        <a href="assets/images/recovery-analysis.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open paired recovery examples at full resolution"><img src="assets/images/recovery-analysis.webp" width="2400" height="4123" alt="Paired simulation rollouts show pose correction, regrasping after a drop, recovery from an obstructed grasp, and stove-knob manipulation. Yellow is the baseline, green is the base policy with RESETTLE, and red marks recovery actions." loading="lazy" decoding="async"></a>
+        <figcaption>Yellow: baseline. Green: base policy with RESETTLE. Red: recovery actions.</figcaption>
       </figure>
       </details>
     </section>
 
     <section id="real-world" class="section container" aria-labelledby="real-world-title">
       <h2 id="real-world-title">Recovery beyond simulation.</h2>
-      <p>On a <strong>Franka Research 3</strong>, one recovery module supports both QwenPI and VLAct across button pressing, cube stacking, object placement, and spoon use. The study includes <strong>320 trials</strong>: 20 trials per task for each of four policy configurations.</p>
+      <p>On a <strong>Franka Research 3</strong>, one recovery module supports both QwenPI and VLAct across button pressing, cube stacking, object placement, and spoon use. The study includes <strong>320 trials</strong>: 20 trials per task for each of four policy configurations. Spoon use measures completion of three stages; the other tasks measure success. The final column averages these four task metrics.</p>
       <figure class="paper-figure">
         <a href="assets/images/real-world-recovery.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open real-world robot rollouts at full resolution"><img src="assets/images/real-world-recovery.webp" width="2400" height="2510" alt="Real-world QwenPI plus RESETTLE rollouts on a Franka arm: placing a carrot in a pot, pressing a button, stacking cubes, and using a spoon." loading="lazy" decoding="async"></a>
-        <figcaption>QwenPI + RESETTLE qualitative rollouts. Cube stacking spans two consecutive rows of a single rollout. Individual intervention frames are not annotated in this figure.</figcaption>
       </figure>
-      <div class="table-scroll"><table class="real-world-table"><caption>Real-world task metrics (%)</caption><thead><tr><th scope="col">Policy</th><th scope="col">Press button<br><small>Success</small></th><th scope="col">Stack cubes<br><small>Success</small></th><th scope="col">Carrot in pot<br><small>Success</small></th><th scope="col">Use spoon<br><small>Stage completion</small></th><th scope="col">Average<br><small>Task metric</small></th></tr></thead><tbody>
+      <div class="table-scroll"><table class="real-world-table"><caption>Real-world task metrics (%)</caption><thead><tr><th scope="col">Policy</th><th scope="col">Press button<br>Success</th><th scope="col">Stack cubes<br>Success</th><th scope="col">Carrot in pot<br>Success</th><th scope="col">Use spoon<br>Stage completion</th><th scope="col">Mean task<br>metric</th></tr></thead><tbody>
         <tr><th scope="row">QwenPI</th><td>90</td><td>55</td><td>85</td><td>36.7</td><td>66.67</td></tr>
         <tr class="ours"><th scope="row">+ RESETTLE</th><td>100</td><td>70</td><td>95</td><td>50.0</td><td><strong>78.75</strong></td></tr>
         <tr class="group-start"><th scope="row">VLAct</th><td>90</td><td>85</td><td>90</td><td>80.0</td><td>86.25</td></tr>
         <tr class="ours"><th scope="row">+ RESETTLE</th><td>100</td><td>90</td><td>95</td><td>86.7</td><td><strong>92.92</strong></td></tr>
       </tbody></table></div>
-      <p class="fine-print">“Use spoon” measures normalized completion of three stages: acquire, scoop, and transfer. The average combines three success rates and one stage-completion metric, computed before rounding; it is not an all-stage success rate. See Table 5 and Appendix E of the paper.</p>
     </section>
 
     <section id="efficiency" class="section container" aria-labelledby="efficiency-title">
-      <h2 id="efficiency-title">A brief correction, with low computation cost.</h2>
+      <h2 id="efficiency-title">Efficient corrective control.</h2>
       <div class="efficiency-layout">
-        <div class="efficiency-stat"><span class="metric-value">83.6<span> ms</span></span><h3>Measured recovery computation</h3><p>QwenPI-based implementation</p><div class="timing-breakdown"><span>Encoder <b>50.8 ms</b></span><span>Retrieval <b>32.0 ms</b></span><span>Servo + residual <b>0.8 ms</b></span></div></div>
-        <div><p>Direct correction avoids repeated vision-language reasoning and iterative online optimization. In the measured QwenPI implementations, RESETTLE reduces monitoring-and-recovery computation by <strong>74.04–93.57%</strong> relative to VoLoAgent’s place and grasp branches.</p>
+        <div class="efficiency-stat"><span class="metric-value">83.6<span> ms</span></span><h3>Recovery computation<br>with QwenPI</h3></div>
+        <div><p>In the measured QwenPI implementations, RESETTLE reduces monitoring-and-recovery computation by <strong>74.04–93.57%</strong> relative to VoLoAgent’s place and grasp branches. RESETTLE produces one action; VoLoAgent plans a trajectory.</p><p>Timings cover computation only, excluding nominal policy inference, polling delays, and robot execution.</p>
           <div class="latency-chart" aria-label="Measured monitoring and recovery or planning computation in milliseconds">
             <div><span>RESETTLE</span><div class="latency-track"><span class="latency-fill ours-fill" style="--value:6.43%"></span></div><b>83.6 ms</b></div>
             <div><span>VoLoAgent · place</span><div class="latency-track"><span class="latency-fill" style="--value:24.77%"></span></div><b>322 ms</b></div>
@@ -189,23 +174,21 @@
           </div>
         </div>
       </div>
-      <p class="fine-print">Timings exclude nominal policy inference, polling delays, and physical execution. RESETTLE generates one action; VoLoAgent prepares a trajectory. These measurements describe computation, not end-to-end reaction time. See the paper’s computational-overhead analysis.</p>
-      <div class="planning-callout"><div><span class="step-number">COMPATIBLE WITH HIGH-LEVEL PLANNING</span><h3>Local recovery also helps an agentic planner.</h3><p>Within Harness VLA, RESETTLE improves LIBERO-Pro Swap success with the same GPT-5.5 planner and frozen π<sub>0.5</sub> policy, evaluated on the same 100 trials.</p></div><div class="planning-result"><span>42<span class="percent">%</span></span><span class="result-arrow" aria-hidden="true">→</span><strong>50<span class="percent">%</span></strong><span class="planning-label">Harness VLA → + RESETTLE</span></div></div>
+      <div class="planning-callout"><div><h3>Local recovery also helps an agentic planner.</h3><p>Within Harness VLA, RESETTLE improves LIBERO-Pro Swap success with the same GPT-5.5 planner and frozen π<sub>0.5</sub> policy, evaluated on the same 100 trials.</p></div><div class="planning-result" aria-label="Harness VLA success: 42 percent without RESETTLE, 50 percent with RESETTLE"><span>42<span class="percent">%</span></span><span class="result-arrow" aria-hidden="true">→</span><strong>50<span class="percent">%</span></strong></div></div>
     </section>
 
     <section id="resources" class="section container" aria-labelledby="resources-title">
       <h2 id="resources-title">Explore the code.</h2>
       <p>The open-source release provides the <strong>LIBERO reference implementation</strong>: joint recovery-model training, expert goal-bank encoding, an HTTP recovery service, and a guarded single-action executor.</p>
       <div class="resource-list">
-        <a href="https://github.com/JIA-Lab-research/RESETTLE#getting-started" target="_blank" rel="noopener noreferrer"><span><strong>Get started</strong><small>Environment, training, goal bank, and inference</small></span><span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/JIA-Lab-research/RESETTLE/blob/main/docs/GUARDED_EXECUTOR.md" target="_blank" rel="noopener noreferrer"><span><strong>Integrate recovery</strong><small>Native actions, motion guards, and re-observation</small></span><span aria-hidden="true">↗</span></a>
-        <a href="https://github.com/JIA-Lab-research/RESETTLE/blob/main/docs/RECOVERY_SERVICE.md" target="_blank" rel="noopener noreferrer"><span><strong>Recovery service</strong><small>HTTP API and checkpoint / bank contracts</small></span><span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/JIA-Lab-research/RESETTLE#getting-started" target="_blank" rel="noopener noreferrer"><span><strong>Get started</strong></span><span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/JIA-Lab-research/RESETTLE/blob/main/docs/GUARDED_EXECUTOR.md" target="_blank" rel="noopener noreferrer"><span><strong>Integrate recovery</strong></span><span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/JIA-Lab-research/RESETTLE/blob/main/docs/RECOVERY_SERVICE.md" target="_blank" rel="noopener noreferrer"><span><strong>Recovery service</strong></span><span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
     <section id="citation" class="section container" aria-labelledby="citation-title">
       <div class="section-heading"><h2 id="citation-title">Citation.</h2><button id="copy-citation" type="button" class="copy-button">Copy BibTeX <span aria-hidden="true">⧉</span></button></div>
-      <p>If RESETTLE is useful for your research, please cite our paper.</p>
       <div class="citation-block"><pre><code id="bibtex">@article{chen2026resettle,
   title={RESETTLE: Robotic Recovery through Disagreement-Triggered Retrieval and Efficient Corrective Control},
   author={Chen, Yuxin and Yang, Senqiao and Wang, Zixuan and Ye, Jinhui and Lu, Changsheng and Chen, Pengguang and Liu, Shu and Tian, Zhuotao and Jia, Jiaya},
@@ -216,6 +199,6 @@
     </section>
   </main>
 
-  <footer class="site-footer container"><div><a class="footer-name" href="#top">RESETTLE <span aria-hidden="true">↑</span></a><p>Robotic recovery through disagreement-triggered retrieval<br>and efficient corrective control.</p></div><p class="credits">Design inspired by <a href="https://robbyant-research.github.io/Zero-WAM/" target="_blank" rel="noopener noreferrer">Zero-WAM</a> and <a href="https://github.com/VisualPrompt-VLA/visualprompt-vla.github.io" target="_blank" rel="noopener noreferrer">VisualPrompt-VLA</a>.<br><a href="https://github.com/resettle-robotics/resettle-robotics.github.io" target="_blank" rel="noopener noreferrer">Website source ↗</a></p></footer>
+  <footer class="site-footer container"><a class="footer-name" href="#top">RESETTLE <span aria-hidden="true">↑</span></a><a href="https://github.com/resettle-robotics/resettle-robotics.github.io" target="_blank" rel="noopener noreferrer">Website source ↗</a></footer>
 </body>
 </html>
