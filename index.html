@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://resettle-robotics.github.io/assets/images/demo-poster.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/style.css?v=2">
+  <link rel="stylesheet" href="assets/css/style.css?v=3">
   <script src="assets/js/main.js" defer></script>
 </head>
 <body>
@@ -37,8 +37,8 @@
     <a href="#method">Method</a>
     <a href="#disagreement">Why disagreement?</a>
     <a href="#results">Simulation</a>
-    <a href="#real-world">Real-world recovery</a>
     <a href="#efficiency">Efficiency</a>
+    <a href="#real-world">Real-world recovery</a>
     <a href="#resources">Code & resources</a>
     <a href="#citation">Citation</a>
   </aside>
@@ -148,20 +148,6 @@
       </details>
     </section>
 
-    <section id="real-world" class="section container" aria-labelledby="real-world-title">
-      <h2 id="real-world-title">Recovery beyond simulation.</h2>
-      <p>On a <strong>Franka Research 3</strong>, one recovery module supports both QwenPI and VLAct across button pressing, cube stacking, object placement, and spoon use. The study includes <strong>320 trials</strong>: 20 trials per task for each of four policy configurations. Spoon use measures completion of three stages; the other tasks measure success. The final column averages these four task metrics.</p>
-      <figure class="paper-figure">
-        <a href="assets/images/real-world-recovery.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open real-world robot rollouts at full resolution"><img src="assets/images/real-world-recovery.webp" width="2400" height="2510" alt="Real-world QwenPI plus RESETTLE rollouts on a Franka arm: placing a carrot in a pot, pressing a button, stacking cubes, and using a spoon." loading="lazy" decoding="async"></a>
-      </figure>
-      <div class="table-scroll"><table class="real-world-table"><caption>Real-world task metrics (%)</caption><thead><tr><th scope="col">Policy</th><th scope="col">Press button<br>Success</th><th scope="col">Stack cubes<br>Success</th><th scope="col">Carrot in pot<br>Success</th><th scope="col">Use spoon<br>Stage completion</th><th scope="col">Mean task<br>metric</th></tr></thead><tbody>
-        <tr><th scope="row">QwenPI</th><td>90</td><td>55</td><td>85</td><td>36.7</td><td>66.67</td></tr>
-        <tr class="ours"><th scope="row">+ RESETTLE</th><td>100</td><td>70</td><td>95</td><td>50.0</td><td><strong>78.75</strong></td></tr>
-        <tr class="group-start"><th scope="row">VLAct</th><td>90</td><td>85</td><td>90</td><td>80.0</td><td>86.25</td></tr>
-        <tr class="ours"><th scope="row">+ RESETTLE</th><td>100</td><td>90</td><td>95</td><td>86.7</td><td><strong>92.92</strong></td></tr>
-      </tbody></table></div>
-    </section>
-
     <section id="efficiency" class="section container" aria-labelledby="efficiency-title">
       <h2 id="efficiency-title">Efficient corrective control.</h2>
       <div class="efficiency-layout">
@@ -175,6 +161,20 @@
         </div>
       </div>
       <div class="planning-callout"><div><h3>Local recovery also helps an agentic planner.</h3><p>Within Harness VLA, RESETTLE improves LIBERO-Pro Swap success with the same GPT-5.5 planner and frozen π<sub>0.5</sub> policy, evaluated on the same 100 trials.</p></div><div class="planning-result" aria-label="Harness VLA success: 42 percent without RESETTLE, 50 percent with RESETTLE"><span>42<span class="percent">%</span></span><span class="result-arrow" aria-hidden="true">→</span><strong>50<span class="percent">%</span></strong></div></div>
+    </section>
+
+    <section id="real-world" class="section container" aria-labelledby="real-world-title">
+      <h2 id="real-world-title">Recovery beyond simulation.</h2>
+      <p>On a <strong>Franka Research 3</strong>, one recovery module supports both QwenPI and VLAct across button pressing, cube stacking, object placement, and spoon use. The study includes <strong>320 trials</strong>: 20 trials per task for each of four policy configurations. Spoon use measures completion of three stages; the other tasks measure success. The final column averages these four task metrics.</p>
+      <figure class="paper-figure">
+        <a href="assets/images/real-world-recovery.webp" target="_blank" rel="noopener" class="figure-link" aria-label="Open real-world robot rollouts at full resolution"><img src="assets/images/real-world-recovery.webp" width="2400" height="2510" alt="Real-world QwenPI plus RESETTLE rollouts on a Franka arm: placing a carrot in a pot, pressing a button, stacking cubes, and using a spoon." loading="lazy" decoding="async"></a>
+      </figure>
+      <div class="table-scroll"><table class="real-world-table"><caption>Real-world task metrics (%)</caption><thead><tr><th scope="col">Policy</th><th scope="col">Press button<br>Success</th><th scope="col">Stack cubes<br>Success</th><th scope="col">Carrot in pot<br>Success</th><th scope="col">Use spoon<br>Stage completion</th><th scope="col">Mean task<br>metric</th></tr></thead><tbody>
+        <tr><th scope="row">QwenPI</th><td>90</td><td>55</td><td>85</td><td>36.7</td><td>66.67</td></tr>
+        <tr class="ours"><th scope="row">+ RESETTLE</th><td>100</td><td>70</td><td>95</td><td>50.0</td><td><strong>78.75</strong></td></tr>
+        <tr class="group-start"><th scope="row">VLAct</th><td>90</td><td>85</td><td>90</td><td>80.0</td><td>86.25</td></tr>
+        <tr class="ours"><th scope="row">+ RESETTLE</th><td>100</td><td>90</td><td>95</td><td>86.7</td><td><strong>92.92</strong></td></tr>
+      </tbody></table></div>
     </section>
 
     <section id="resources" class="section container" aria-labelledby="resources-title">

@@ -236,6 +236,10 @@ th:first-child { padding-left: 0; }
 .site-footer { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 28px; padding-bottom: 42px; display: flex; justify-content: space-between; gap: 35px; color: var(--muted); font-size: 16px; }
 .footer-name { font: 600 16px var(--mono); color: var(--ink); }
 
+@media (min-width: 1024px) {
+  .section h2.lead { font-size: min(36px, 3vw); white-space: nowrap; }
+}
+
 @media (min-width: 1500px) {
   .contents { display: block; }
   main > .container, .site-footer { transform: translateX(-70px); }
